@@ -10,7 +10,7 @@ using RoutineCatalogue.MVC.Data;
 namespace RoutineCatalogue.MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190817014931_InitialMigration")]
+    [Migration("20190817035048_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -205,7 +205,7 @@ namespace RoutineCatalogue.MVC.Migrations
 
                     b.Property<DateTime?>("UpdateDate");
 
-                    b.Property<double>("Weight");
+                    b.Property<double?>("Weight");
 
                     b.HasKey("Id");
 

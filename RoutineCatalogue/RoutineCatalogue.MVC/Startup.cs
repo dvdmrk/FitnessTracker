@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RoutineCatalogue.MVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RoutineCatalogue.MVC.Factories;
 using Microsoft.Extensions.Options;
-using RoutineCatalogue.Models.Settings;
 using RoutineCatalogue.Models.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using RoutineCatalogue.Models.Settings;
+using RoutineCatalogue.Models.ViewModels;
+using RoutineCatalogue.MVC.Data;
+using RoutineCatalogue.MVC.Factories;
+using RoutineCatalogue.MVC.Repositories;
+using System;
+using System.Reflection;
 
 namespace RoutineCatalogue.MVC
 {
@@ -54,6 +53,8 @@ namespace RoutineCatalogue.MVC
             .AddDefaultUI()
             .AddDefaultTokenProviders();
 
+            services.AddScoped(typeof(IRepository<,,>), typeof(Repository<,,>));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

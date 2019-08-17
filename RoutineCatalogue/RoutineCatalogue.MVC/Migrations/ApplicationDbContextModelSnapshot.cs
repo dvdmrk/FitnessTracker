@@ -203,7 +203,7 @@ namespace RoutineCatalogue.MVC.Migrations
 
                     b.Property<DateTime?>("UpdateDate");
 
-                    b.Property<double>("Weight");
+                    b.Property<double?>("Weight");
 
                     b.HasKey("Id");
 

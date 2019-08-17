@@ -232,7 +232,7 @@ namespace RoutineCatalogue.MVC.Migrations
                     ExerciseId = table.Column<Guid>(nullable: true),
                     RoutineId = table.Column<Guid>(nullable: true),
                     Repitions = table.Column<int>(nullable: true),
-                    Weight = table.Column<double>(nullable: false),
+                    Weight = table.Column<double>(nullable: true),
                     Order = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -329,3 +329,6 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /RoutineCatalogue/RoutineCatalogue.MVC/appsettings.json
+/RoutineCatalogue/RoutineCatalogue.API/appsettings.json
+/RoutineCatalogue/RoutineCatalogue.MVC/appsettings.Development.json
+/RoutineCatalogue/RoutineCatalogue.API/appsettings.Development.json

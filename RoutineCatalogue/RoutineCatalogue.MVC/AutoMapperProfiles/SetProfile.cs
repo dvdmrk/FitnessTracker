@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.ViewModels;
+using System;
+
 namespace RoutineCatalogue.Models.AutoMapperProfiles
 {
     public class SetProfile : Profile

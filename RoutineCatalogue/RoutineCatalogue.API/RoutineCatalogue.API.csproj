@@ -2,28 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-RoutineCatalogue.MVC-D75A3B62-A9AF-4906-B361-E4E369C9588D</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
   </ItemGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\RoutineCatalogue.Models\RoutineCatalogue.Models.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Content Update="appsettings.Development.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <ProjectReference Include="..\RoutineCatalogue.MVC\RoutineCatalogue.MVC.csproj" />
   </ItemGroup>
 
 </Project>

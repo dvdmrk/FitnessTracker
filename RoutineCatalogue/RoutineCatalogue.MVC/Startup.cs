@@ -54,6 +54,7 @@ namespace RoutineCatalogue.MVC
             .AddDefaultTokenProviders();
 
             services.AddScoped(typeof(IRepository<,,>), typeof(Repository<,,>));
+            services.AddScoped<SetService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

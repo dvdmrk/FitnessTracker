@@ -1,0 +1,22 @@
+﻿@model IEnumerable<SelectListItem>
+<div class="col-md-12">
+    <label class="control-label">Exercises</label>
+</div>
+<div class="col-md-8">
+    <select name="ExerciseId" asp-items="@Model" class="form-control"></select>
+</div>
+<div class="col-md-4">
+    <button type="button" class="btn btn-primary btn-block" onclick="addToSetList();">Add Set <i class="fas fa-plus-circle"></i></button>
+</div>
+<script>
+    function addToSetList() {
+        $.ajax({
+            type: "POST",
+            url: "/Set/Create",
+            data: { routineId: $("#Id").val(), exerciseId: $("[name=ExerciseId]").val() },
+            success: function (data) {
+                $("#SetList").replaceWith(data)
+            }
+        });
+    }
+</script>

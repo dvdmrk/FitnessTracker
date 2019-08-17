@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.ViewModels;
 namespace RoutineCatalogue.MVC.AutoMapperProfiles
@@ -16,6 +17,10 @@ namespace RoutineCatalogue.MVC.AutoMapperProfiles
             CreateMap<Exercise, ExerciseIndexViewModel>()
                 .ForMember(dest => dest.UpdateBy, map => map.MapFrom(source => source.UpdateBy != null ? source.UpdateBy.UserName : source.CreateBy.UserName))
                 .ForMember(dest => dest.UpdateDate, map => map.MapFrom(source => source.UpdateDate != null ? source.UpdateDate : source.CreateDate));
+            CreateMap<Exercise, SelectListItem>()
+                .ForMember(dest => dest.Value, map => map.MapFrom(source => source.Id))
+                .ForMember(dest => dest.Text, map => map.MapFrom(source => source.Name));
         }
+
     }
 }

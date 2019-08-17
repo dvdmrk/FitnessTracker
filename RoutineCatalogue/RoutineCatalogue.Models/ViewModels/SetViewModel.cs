@@ -6,8 +6,8 @@ namespace RoutineCatalogue.Models.ViewModels
     {
         [Display(Name = "Exercise Name")]
         public string Exercise { get; set; }
-        [Display(Name = "Recommended # of Repitions")]
-        public int? Repitions { get; set; }
+        [Display(Name = "Recommended # of Repetitions")]
+        public int? Repetitions { get; set; }
         [Display(Name = "Recommended % of Max Weight")]
         public double? Weight { get; set; }
         public Guid RoutineId { get; set; }

@@ -10,14 +10,14 @@ using RoutineCatalogue.MVC.Data;
 namespace RoutineCatalogue.MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190817035048_InitialMigration")]
+    [Migration("20190817151012_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -197,7 +197,7 @@ namespace RoutineCatalogue.MVC.Migrations
 
                     b.Property<int>("Order");
 
-                    b.Property<int?>("Repitions");
+                    b.Property<int?>("Repetitions");
 
                     b.Property<Guid?>("RoutineId");
 

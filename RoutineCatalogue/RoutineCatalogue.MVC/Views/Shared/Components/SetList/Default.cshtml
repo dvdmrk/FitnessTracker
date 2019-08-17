@@ -1,0 +1,56 @@
+﻿@using RoutineCatalogue.Models.ViewModels
+@model IEnumerable<SetIndexViewModel>
+
+@{
+    var isDetails = ViewContext.RouteData.Values["Action"].ToString() == "Details";
+}
+@if (Model.Count() > 0)
+{
+    <div id="SetList">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Repetitions</th>
+                    <th>Weight</th>
+                    @if (isDetails)
+                    {
+                        <th>Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Exercise)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Repetitions)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Weight)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Exercise)
+                        </td>
+                        @if (isDetails)
+                        {
+
+                            <td>
+                                <span class="actions">
+                                    <a href onclick="populateWindow(`Set`, `Edit`, `@item.Id`);" data-toggle="modal" data-target="#window"><i class="fas fa-edit"></i></a>
+                                    <a href onclick="populateWindow(`Set`, `Details`, `@item.Id`);" data-toggle="modal" data-target="#window"><i class="fas fa-info-circle"></i></a>
+                                    <a href onclick="populateWindow(`Set`, `Delete`, `@item.Id`);" data-toggle="modal" data-target="#window"><i class="far fa-trash-alt"></i></a>
+                                </span>
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

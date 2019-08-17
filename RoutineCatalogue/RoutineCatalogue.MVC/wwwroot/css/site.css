@@ -54,3 +54,28 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+/*RoutineCatalogue Specific Styles*/
+#window .form-group {
+    width: 100% !important;
+}
+
+.actions, .actions button {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+label.control-label {
+    font-weight: bold;
+}
+
+div#SetList {
+    width: 100%;
+}
+
+#SetList th:nth-child(2) {
+    width: 100px;
+}
+
+form {
+    width: 98% !important;
+}

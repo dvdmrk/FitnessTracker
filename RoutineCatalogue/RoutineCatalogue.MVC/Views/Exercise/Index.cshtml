@@ -1,0 +1,44 @@
+﻿@using RoutineCatalogue.Models.ViewModels
+@model IEnumerable<ExerciseIndexViewModel>
+<span class="actions">
+    <a href onclick="populateWindow(`@ViewContext.RouteData.Values["Controller"]`, `Create`);" data-toggle="modal" data-target="#window">Create Exercise <i class="fas fa-plus-circle"></i></a>
+</span>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDate)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                <span class="actions">
+                    <a href onclick="populateWindow(`@ViewContext.RouteData.Values["Controller"]`, `Edit`, `@item.Id`);" data-toggle="modal" data-target="#window"><i class="fas fa-edit"></i></a>
+                    <a href onclick="populateWindow(`@ViewContext.RouteData.Values["Controller"]`, `Details`, `@item.Id`);" data-toggle="modal" data-target="#window"><i class="fas fa-info-circle"></i></a>
+                    <a href onclick="populateWindow(`@ViewContext.RouteData.Values["Controller"]`, `Delete`, `@item.Id`);" data-toggle="modal" data-target="#window"><i class="far fa-trash-alt"></i></a>
+                </span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -231,7 +231,7 @@ namespace RoutineCatalogue.MVC.Migrations
                     UpdateById = table.Column<Guid>(nullable: true),
                     ExerciseId = table.Column<Guid>(nullable: true),
                     RoutineId = table.Column<Guid>(nullable: true),
-                    Repitions = table.Column<int>(nullable: true),
+                    Repetitions = table.Column<int>(nullable: true),
                     Weight = table.Column<double>(nullable: true),
                     Order = table.Column<int>(nullable: false)
                 },

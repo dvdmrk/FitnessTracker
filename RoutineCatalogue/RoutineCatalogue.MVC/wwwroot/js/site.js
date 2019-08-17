@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿function populateWindow(controller, action, id) {
+    var url = "/" + controller;
+    url += "/" + action;
+    url += id != undefined ? "/" + id : "";
+    $("#window .modal-title").text(controller + " " + action);
+    $.get(url, function (data) {
+        $("#window .modal-body").html(data);
+    });
+}

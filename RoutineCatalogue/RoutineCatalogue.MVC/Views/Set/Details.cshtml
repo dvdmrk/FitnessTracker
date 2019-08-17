@@ -1,0 +1,31 @@
+﻿@using RoutineCatalogue.Models.ViewModels
+@model SetViewModel
+<div class="col-lg-12">
+    <dl class="row">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Exercise)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Exercise)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Repetitions)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Repetitions)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+    </dl>
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <span class="actions">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close <i class="far fa-window-close"></i></button>
+        </span>
+    </div>
+</div>
+

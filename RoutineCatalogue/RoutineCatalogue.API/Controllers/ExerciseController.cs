@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.ViewModels;
 using RoutineCatalogue.MVC.Repositories;
 using System;
 namespace RoutineCatalogue.API.Controllers
 {
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ExerciseController : ControllerBase
     {
         IRepository<Exercise, ExerciseViewModel, ExerciseIndexViewModel> _repo;

@@ -3,9 +3,13 @@ using RoutineCatalogue.Models.ViewModels;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.MVC.Repositories;
 using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+
 namespace RoutineCatalogue.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class SetController : ControllerBase
     {
         IRepository<Set, SetViewModel, SetIndexViewModel> _repo;

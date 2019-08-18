@@ -1,16 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.ViewModels;
 using RoutineCatalogue.MVC.Repositories;
 using System;
+using System.Threading.Tasks;
+
 namespace RoutineCatalogue.API.Controllers
 {
+    [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ExerciseController : ControllerBase
     {
         IRepository<Exercise, ExerciseViewModel, ExerciseIndexViewModel> _repo;
         public ExerciseController(IRepository<Exercise, ExerciseViewModel, ExerciseIndexViewModel> repo)
         {
             _repo = repo;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _repo.GetAll());
         }
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)

@@ -33,7 +33,7 @@ namespace RoutineCatalogue.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Signin")]
-        public async Task<IActionResult> Signin(ApiSigninModel signInModel)
+        public async Task<IActionResult> Signin([FromBody]ApiSigninModel signInModel)
         {
             var user = await _userManager.FindByNameAsync(signInModel.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, signInModel.Password))
@@ -46,7 +46,7 @@ namespace RoutineCatalogue.API.Controllers
                         new Claim("Role", _userManager.GetRolesAsync(user).Result.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddHours(6),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.ApplicationSecret)), SecurityAlgorithms.HmacSha256Signature)
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.ApplicationSecret)), SecurityAlgorithms.HmacSha256)
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
@@ -59,7 +59,7 @@ namespace RoutineCatalogue.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("Signup")]
-        public async Task<IActionResult> Signup(ApiSigninModel signupModel)
+        public async Task<IActionResult> Signup([FromBody]ApiSigninModel signupModel)
         {
             var user = new User
             {
@@ -76,7 +76,7 @@ namespace RoutineCatalogue.API.Controllers
 
             if (!result.Errors.Any())
                 return await Signin(signupModel);
-            return Unauthorized();
+            return Unauthorized(new { message = result.Errors.ToList() });
         }
     }
 }

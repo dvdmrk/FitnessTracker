@@ -5,6 +5,8 @@ using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.ViewModels;
 using RoutineCatalogue.MVC.Repositories;
 using System;
+using System.Threading.Tasks;
+
 namespace RoutineCatalogue.API.Controllers
 {
     [Route("api/[controller]")]
@@ -15,6 +17,11 @@ namespace RoutineCatalogue.API.Controllers
         public ExerciseController(IRepository<Exercise, ExerciseViewModel, ExerciseIndexViewModel> repo)
         {
             _repo = repo;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(await _repo.GetAll());
         }
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)

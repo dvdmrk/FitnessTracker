@@ -5,6 +5,7 @@ using RoutineCatalogue.MVC.Repositories;
 using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using RoutineCatalogue.Models.ApiModels;
 
 namespace RoutineCatalogue.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace RoutineCatalogue.API.Controllers
         {
             try
             {
-                return Ok(_repo.Get(id));
+                return Ok(new { message = _repo.Get(id), hypermedia = new HyperMediaResponse<Set>(id) });
             }
             catch (Exception e)
             {
@@ -34,7 +35,7 @@ namespace RoutineCatalogue.API.Controllers
         {
             try
             {
-                return Ok(_repo.Add(body));
+                return Ok(new { message = _repo.Add(body), hypermedia = new HyperMediaResponse<Set>(body.Id) });
             }
             catch (Exception e)
             {
@@ -47,7 +48,7 @@ namespace RoutineCatalogue.API.Controllers
             try
             {
                 _repo.Update(body);
-                return Ok();
+                return Ok(new { message = "Set Updated!", hypermedia = new HyperMediaResponse<Set>(body.Id) });
             }
             catch (Exception e)
             {
@@ -60,7 +61,7 @@ namespace RoutineCatalogue.API.Controllers
             try
             {
                 _repo.Delete(id);
-                return Ok();
+                return Ok(new { message = "Set Deleted!", hypermedia = new HyperMediaResponse<Set>() });
             }
             catch (Exception e)
             {

@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RoutineCatalogue.API.Services;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.Settings;
 using RoutineCatalogue.MVC.Data;
@@ -33,10 +34,10 @@ namespace RoutineCatalogue.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-//Add ApplicationSettings values to Services Collection
-services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
-//Encode your key specified in appsettings.json
-var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:ApplicationSecret"].ToString());
+            //Add ApplicationSettings values to Services Collection
+            services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+            //Encode your key specified in appsettings.json
+            var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:ApplicationSecret"].ToString());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Development")));
@@ -81,6 +82,7 @@ var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:ApplicationS
                     ClockSkew = TimeSpan.Zero
                 };
             });
+            services.AddScoped<RoutineService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

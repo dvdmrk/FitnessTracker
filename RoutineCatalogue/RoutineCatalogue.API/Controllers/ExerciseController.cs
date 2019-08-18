@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RoutineCatalogue.Models.ApiModels;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.ViewModels;
 using RoutineCatalogue.MVC.Repositories;
@@ -21,14 +22,14 @@ namespace RoutineCatalogue.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _repo.GetAll());
+            return Ok(new { message = await _repo.GetAll(), hypermedia = new HyperMediaResponse<Exercise>(Guid.Empty) });
         }
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
             try
             {
-                return Ok(_repo.Get(id));
+                return Ok(new { message = _repo.Get(id), hypermedia = new HyperMediaResponse<Exercise>(id) });
             }
             catch (Exception e)
             {
@@ -40,7 +41,7 @@ namespace RoutineCatalogue.API.Controllers
         {
             try
             {
-                return Ok(_repo.Add(body));
+                return Ok(new { message = _repo.Add(body), hypermedia = new HyperMediaResponse<Exercise>(body.Id) });
             }
             catch (Exception e)
             {
@@ -53,7 +54,7 @@ namespace RoutineCatalogue.API.Controllers
             try
             {
                 _repo.Update(body);
-                return Ok();
+                return Ok(new { message = "Exercise Updated!", hypermedia = new HyperMediaResponse<Exercise>(body.Id) });
             }
             catch (Exception e)
             {
@@ -66,7 +67,7 @@ namespace RoutineCatalogue.API.Controllers
             try
             {
                 _repo.Delete(id);
-                return Ok();
+                return Ok(new { message = "Exercise Deleted!", hypermedia = new HyperMediaResponse<Exercise>() });
             }
             catch (Exception e)
             {

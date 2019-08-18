@@ -332,5 +332,5 @@ ASALocalRun/
 /RoutineCatalogue/RoutineCatalogue.API/appsettings.json
 /RoutineCatalogue/RoutineCatalogue.MVC/appsettings.Development.json
 /RoutineCatalogue/RoutineCatalogue.API/appsettings.Development.json
-/WorkoutService/WorkoutService/appsettings.Development.json
 /WorkoutService/WorkoutService/appsettings.json
+/WorkoutService/WorkoutService/appsettings.Development.json

@@ -4,5 +4,6 @@
     {
         public string RoutineServiceIP { get; set; }
         public string ApplicationSecret { get; set; }
+        public string DynamoDb { get; set; }
     }
 }

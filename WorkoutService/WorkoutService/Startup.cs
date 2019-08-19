@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.DynamoDBv2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -40,6 +43,10 @@ namespace WorkoutService
             services.AddMemoryCache();
             services.AddSingleton<RoutineFactory>();
             services.AddSingleton<HypermediaService>();
+            services.AddSingleton<IAmazonDynamoDB, AmazonDynamoDBClient>();
+            services.AddSingleton<IWorkoutRepository, WorkoutRepository>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

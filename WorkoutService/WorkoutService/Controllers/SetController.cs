@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using WorkoutService.Models;
 using WorkoutService.Services;
 namespace WorkoutService.Controllers
@@ -14,10 +15,12 @@ namespace WorkoutService.Controllers
     {
         IMemoryCache _cache;
         HypermediaService _hypermediaService;
-        public SetController(IMemoryCache cache, HypermediaService hypermediaService)
+        IWorkoutRepository _workoutRepository;
+        public SetController(IMemoryCache cache, HypermediaService hypermediaService, IWorkoutRepository workoutRepository)
         {
             _cache = cache;
             _hypermediaService = hypermediaService;
+            _workoutRepository = workoutRepository;
         }
         // GET api/values
         [HttpGet("{routineId}")]
@@ -30,16 +33,20 @@ namespace WorkoutService.Controllers
             return Ok(new { set, hypermedia = _hypermediaService.GetHypermediaForNextSet() });
         }
 
-        // GET api/values/5
         [HttpPost]
-        public IActionResult PostWorkout(Workout workout)
+        public async Task<IActionResult> PostWorkout(Workout workout)
         {
             if (workout.Order < 0) return BadRequest();
-            //Update DynamoDB  with values
+            await _workoutRepository.Write(workout);
             var routine = new Routine();
             _cache.TryGetValue(workout.RoutineId, out routine);
             var set = routine.Sets.Skip(workout.Order + 1).FirstOrDefault();
-            return set == null ? Ok(new { message = "Congrats! You completed a workout." }) : Ok(new { set, hypermedia = _hypermediaService.GetHypermediaForNextSet() });
+            if (set == null)
+            {
+                _workoutRepository.CompleteWorkout(workout.RoutineId);
+                return Ok(new { message = "Congrats! You completed a workout." });
+            }
+            return Ok(new { set, hypermedia = _hypermediaService.GetHypermediaForNextSet() });
         }
     }
 }

@@ -39,6 +39,7 @@ namespace WorkoutService
             services.AddSingleton(RestClient.For<IRoutineService>(config.RoutineServiceIP));
             services.AddMemoryCache();
             services.AddSingleton<RoutineFactory>();
+            services.AddSingleton<HypermediaService>();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

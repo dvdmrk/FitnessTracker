@@ -20,7 +20,7 @@ namespace WorkoutService.Services
                 var routines = _routineService.GetRoutines().Result;
                 _cache.Set("Routines", routines);
                 foreach (var routine in routines)
-                    _cache.Set($"{routine.Id}", routine);
+                    _cache.Set(routine.Id, routine);
                 return Task.FromResult(true);
             }
             catch (Exception e)

@@ -34,7 +34,7 @@ namespace WorkoutService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostWorkout(Workout workout)
+        public async Task<IActionResult> PostWorkout([FromBody] Workout workout)
         {
             if (workout.Order < 0) return BadRequest();
             await _workoutRepository.Write(workout);

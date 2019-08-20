@@ -28,7 +28,7 @@ namespace WorkoutService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            var region = "us-east-1";
+            var region = "us-east-2";
             AWSConfigs.AWSRegion = region;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon;
 using Amazon.DynamoDBv2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +28,8 @@ namespace WorkoutService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var region = "us-east-1";
+            AWSConfigs.AWSRegion = region;
         }
 
         public IConfiguration Configuration { get; }
@@ -35,6 +38,8 @@ namespace WorkoutService
         public void ConfigureServices(IServiceCollection services)
         {
             var config = Configuration.GetSection("ApplicationSettings").Get<ApplicationSettings>();
+            services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
+
             var key = Encoding.UTF8.GetBytes(config.ApplicationSecret);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Amazon.DynamoDBv2.DataModel;
+using System.Collections.Generic;
 namespace WorkoutService.Models
 {
     public class WorkoutHistory
@@ -8,6 +9,7 @@ namespace WorkoutService.Models
         {
             Key = key;
         }
+        [DynamoDBHashKey]
         public string Key { get; set; }
         public ICollection<WorkoutRoutine> WorkoutRoutines { get; set; }
     }

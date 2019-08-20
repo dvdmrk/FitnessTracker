@@ -1,6 +1,7 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -12,11 +13,11 @@ namespace WorkoutService.Services
     {
         private DynamoDBOperationConfig _config;
         private IHttpContextAccessor _httpContextAccessor;
-        public WorkoutRepository(IAmazonDynamoDB db, string tableName, IHttpContextAccessor httpContextAccessor) : base(db)
+        public WorkoutRepository(IAmazonDynamoDB db, IOptions<ApplicationSettings> appSettings, IHttpContextAccessor httpContextAccessor) : base(db)
         {
             _config = new DynamoDBOperationConfig()
             {
-                OverrideTableName = tableName
+                OverrideTableName = appSettings.Value.DynamoDb
             };
             _httpContextAccessor = httpContextAccessor;
         }

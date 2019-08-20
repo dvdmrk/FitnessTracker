@@ -42,8 +42,8 @@ namespace RoutineCatalogue.API.Controllers
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim("UserId", user.Id.ToString()),
-                        new Claim("Role", _userManager.GetRolesAsync(user).Result.FirstOrDefault())
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Role, _userManager.GetRolesAsync(user).Result.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddHours(6),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.ApplicationSecret)), SecurityAlgorithms.HmacSha256)

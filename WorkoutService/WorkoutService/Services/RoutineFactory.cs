@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Threading.Tasks;
 namespace WorkoutService.Services
 {
     public class RoutineFactory
@@ -9,10 +11,22 @@ namespace WorkoutService.Services
         {
             _routineService = routineService;
             _cache = cache;
-            var routines = _routineService.GetRoutines().Result;
-            _cache.Set("Routines", routines);
-            foreach (var routine in routines)
-                _cache.Set($"{routine.Id}", routine);
+            HyrdrateCache();
+        }
+        public Task<bool> HyrdrateCache()
+        {
+            try
+            {
+                var routines = _routineService.GetRoutines().Result;
+                _cache.Set("Routines", routines);
+                foreach (var routine in routines)
+                    _cache.Set($"{routine.Id}", routine);
+                return Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                return Task.FromResult(false);
+            }
         }
     }
 }

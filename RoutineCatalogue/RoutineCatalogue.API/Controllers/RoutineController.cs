@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using RoutineCatalogue.API.Services;
 using RoutineCatalogue.Models.ApiModels;
@@ -28,12 +29,12 @@ namespace RoutineCatalogue.API.Controllers
         {
             return Ok(new { message = await _repo.GetAll(), hypermedia = new HyperMediaResponse<Routine>(Guid.Empty) });
         }
-        [HttpGet("GetRoutinesWithSets")]
-        [AllowAnonymous]
-        public async Task<IEnumerable<object>> GetRoutinesWithSets()
-        {
-            return await _routineService.GetAll();
-        }
+[HttpGet("GetRoutinesWithSets")]
+[EnableCors("RoutineService")]
+public async Task<IEnumerable<object>> GetRoutinesWithSets()
+{
+    return await _routineService.GetAll();
+}
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {

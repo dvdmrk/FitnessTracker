@@ -65,6 +65,16 @@ namespace WorkoutService
                     ClockSkew = TimeSpan.Zero
                 };
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("RoutineService",
+                    builder =>
+                    {
+                        builder.WithOrigins(config.RoutineServiceIP)
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

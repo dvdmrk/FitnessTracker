@@ -26,8 +26,8 @@ namespace WorkoutService.Controllers
         public IActionResult GetRoutines()
         {
             var routines = new List<Routine>();
-
-            return Ok(_cache.TryGetValue("Routines", out routines));
+            _cache.TryGetValue("Routines", out routines);
+            return Ok(routines);
         }
         [HttpGet("{id}")]
         public IActionResult GetRoutine(Guid id)

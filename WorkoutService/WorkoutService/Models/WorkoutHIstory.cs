@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Amazon.DynamoDBv2.DataModel;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 namespace WorkoutService.Models
 {
     public class WorkoutHistory
     {
         public WorkoutHistory() {}
-        public WorkoutHistory(string key)
+        public WorkoutHistory(string _key)
         {
-            Key = key;
+            key = _key;
         }
-        public string Key { get; set; }
-        public ICollection<WorkoutRoutine> WorkoutRoutines { get; set; }
+        [DynamoDBHashKey]
+        public string key { get; set; }
+        public string WorkoutRoutinesJSON { get; set; }
+        public ICollection<WorkoutRoutine> WorkoutRoutines => JsonConvert.DeserializeObject <ICollection<WorkoutRoutine>>(WorkoutRoutinesJSON);
     }
 }

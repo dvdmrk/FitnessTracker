@@ -34,12 +34,14 @@ namespace WorkoutService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostWorkout(Workout workout)
+        public async Task<IActionResult> PostWorkout([FromBody] Workout workout)
         {
             if (workout.Order < 0) return BadRequest();
             await _workoutRepository.Write(workout);
             var routine = new Routine();
             _cache.TryGetValue(workout.RoutineId, out routine);
+            var i = 0;
+            routine.Sets.ToList().ForEach(c => { c.Order = i; i++; });
             var set = routine.Sets.Skip(workout.Order + 1).FirstOrDefault();
             if (set == null)
             {

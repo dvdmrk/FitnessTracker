@@ -12,11 +12,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RestEase;
 using RoutineCatalogue.API.Services;
 using RoutineCatalogue.Models.Entities;
 using RoutineCatalogue.Models.Settings;
 using RoutineCatalogue.MVC.Data;
 using RoutineCatalogue.MVC.Repositories;
+using RoutineCatalogue.MVC.Services;
 using System;
 using System.Text;
 
@@ -34,10 +36,12 @@ namespace RoutineCatalogue.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = Configuration.GetSection("ApplicationSettings").Get<ApplicationSettings>();
+
             //Add ApplicationSettings values to Services Collection
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             //Encode your key specified in appsettings.json
-            var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:ApplicationSecret"].ToString());
+            var key = Encoding.UTF8.GetBytes(config.ApplicationSecret);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Development")));
@@ -50,8 +54,12 @@ namespace RoutineCatalogue.API
                     Description = "Create a routine, add an Exercise and Set. This is the back end."
                 });
             });
-            services.AddScoped(typeof(IRepository<,,>), typeof(Repository<,,>));
+            services.AddScoped(typeof(IRepository<,,>), typeof(PublishRepository<,,>));
+            services.AddScoped(typeof(Repository<,,>));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IPublisherAdapter, Publisher>();
+            services.AddSingleton(RestClient.For<IPublisher>(config.WorkoutServiceIP));
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //Add Identity to the Services Collection
@@ -83,6 +91,16 @@ namespace RoutineCatalogue.API
                 };
             });
             services.AddScoped<RoutineService>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("WorkoutService",
+                    builder =>
+                    {
+                        builder.WithOrigins(config.WorkoutServiceIP)
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

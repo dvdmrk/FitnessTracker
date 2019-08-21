@@ -88,6 +88,7 @@ namespace RoutineCatalogue.MVC
             });
 
             UserSeedFactory.Initialize(context, userManager, roleManager, appSettings.Value).Wait();
+            RoutineFactory.Initialize(context);
         }
     }
 }

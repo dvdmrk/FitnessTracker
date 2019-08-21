@@ -1,0 +1,33 @@
+﻿@using RoutineCatalogue.Models.ViewModels
+@model ExerciseViewModel
+<div class="col-lg-12">
+    <form asp-action="Edit">
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <span class="actions">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel <i class="far fa-window-close"></i></button>
+                    <button type="submit" class="btn btn-primary">Save <i class="far fa-save"></i></button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
